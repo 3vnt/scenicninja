@@ -15,8 +15,17 @@ module.exports.searchFlickr = function(text, long, lat) {
   var method ='flickr.photos.search';
   var sort = 'relevance';
   //The possible values are: date-posted-asc, date-posted-desc, date-taken-asc, date-taken-desc, interestingness-desc, interestingness-asc, and relevance.
-  request.get('https://api.flickr.com/services/rest/?method=' + method +'&text=' + queryString + '&accuracy=' + accuracy +'&lat=' + lat + '&lon=' + lon + '&radius=' + radius + '&sort=' + sort + '&api_key=' + FLICKR_API_KEY.KEY)
-}
+  return request.get('https://api.flickr.com/services/rest/?method=' + method +'&text=' + queryString + '&accuracy=' + accuracy +'&lat=' + lat + '&lon=' + lon + '&radius=' + radius + '&sort=' + sort + '&api_key=' + FLICKR_API_KEY.KEY)
+    .on('response', function(response) {
+      var body = [];
+      response.on('data', function(chunk){
+        body.push(chunk);
+      }).on('end', function() {
+        console.log(body);
+        return body;
+      });
+    });
+};
 
 module.exports.getPhotoUrl = function(photoID, size) {  //return image source
   request.get('https;//api.flickr.com/services/rest/?method=flickr.photos.getSizes&photo_id=' + photoID + '&api_key=' + FLICKR_API_KEY.KEY)
@@ -30,4 +39,4 @@ module.exports.getPhotoUrl = function(photoID, size) {  //return image source
               return body.something[index].source;
             })
           })
-}
+};
