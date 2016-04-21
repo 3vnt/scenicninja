@@ -125,6 +125,18 @@ button:focus {
   border-radius: 2px;
 }
 
+.place-entry-image {
+  float:left;
+  padding-top: 10px;
+  padding-right: 10px;
+}
+
+.saved-place-image {
+  float:left;
+  padding-top:5px;
+  padding-right:5px;
+}
+
 .place-entry:hover {
   border: 1px solid rgba(0,0,0,0.12);
 }

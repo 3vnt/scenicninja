@@ -4,7 +4,19 @@ var User = require(__dirname + '/../users/userModel.js');
 var GOOGLE_PLACES_API_KEY = require(__dirname + '/../config/googleplaces.js');
 var request = require('request');
 var urlParser = require('url');
+var flickr = require(__dirname +'/../flickr/flickrController.js');
+var rp = require('request-promise'); //refactor into promise
 
+var PlacesObj = function(googlePlacesData) {
+  return {
+    name: googlePlacesData.name,
+    address: googlePlacesData['formatted_address'],
+    googlePlaceId: googlePlacesData['place_id'],
+    latitude: googlePlacesData['geometry']['location']['lat'],
+    longitude: googlePlacesData['geometry']['location']['lng'],
+    url: '',
+  }
+}
 
 module.exports.getAllSaved = function(req, res) {
   var user = req.body.user;
@@ -87,76 +99,63 @@ module.exports.deleteOne = function(req, res) {
 //Make a get call to Google Places radarsearch endpoint, get back 200 results;
 //Make a get call to Google Places details endpoint for each of the 200 results, match their reviews against regexes, send filtered and simplified results back to client;
 //Use a counter to make sure the results are only sent to client after all the initial results have been examined.
+
 module.exports.searchGoogle = function(req, res) {
 
   var searchString = urlParser.parse(req.url).search; //include leading question mark
   var regex1 = new RegExp(/(good|great|awesome|fantastic|terrific|nice|cool|wonderful|dope|beautiful|amazing|gorgeous|breathtaking|scenic|panoramic|stunning) view/);
   var regex2 = new RegExp(/view (is|was) (good|great|awesome|fantastic|terrific|nice|cool|wonderful|dope|beautiful|amazing|gorgeous|breathtaking|scenic|panoramic|stunning)/);
 
-  request.get('https://maps.googleapis.com/maps/api/place/radarsearch/json' + searchString + '&key=' + GOOGLE_PLACES_API_KEY)
-    .on('response', function(response) { //layer 1 on 'response'
+  var responseBody = {};
+  responseBody.places = [];
+  var cap = 15;
+  var entered = 0;
 
-      var body = [];
-
-      response.on('data', function(chunk) { //layer 2 on 'data'
-        body.push(chunk);
-      }).on('end', function() { //layer 2 on 'end'
-        body = JSON.parse(Buffer.concat(body).toString());
-        var filteredBody = {};
-        filteredBody.places = [];
-        if (body.results && body.results.length > 0) {
-
-          var places = body.results;
-          var counter = 0; //ensure server only sends back filteredBody if all places have been processed
-          for (var i = 0; i < places.length; i++) {
-            var place = places[i];
-            var placeid = place['place_id'];
-
-            request.get('https://maps.googleapis.com/maps/api/place/details/json?' + 'key=' + GOOGLE_PLACES_API_KEY + '&placeid=' + placeid)
-              .on('response', function(response) { //layer 3 on 'response'
-                var body = [];
-                response.on('data', function(chunk) { //layer 4 on 'data'
-                  body.push(chunk);
-                }).on('end', function() { //layer 4 on 'end'
-                  body = JSON.parse(Buffer.concat(body).toString());
-                  var placeDetails = body.result;
-                  var reviews = placeDetails.reviews;
-                  if (reviews) {
-                    for (var j = 0; j < reviews.length; j++) {
-                      var review = reviews[j];
-                      if (review.text.match(regex1) || review.text.match(regex2)) { //TODO: improve regex matching
-                        filteredBody.places.push({
-                          name: placeDetails.name,
-                          address: placeDetails['formatted_address'],
-                          googlePlaceId: placeDetails['place_id']
-                        });
-                        break;
-                      }
-                    }
-                  }
-                  counter++;
-                  if (counter === places.length) {
-                    res.json(filteredBody);
-                  }
-                }); //end of layer 4 on 'end'
-              }) //end of layer 3 on 'response'
-              .on('error', function(error) { //layer 3 on 'error'
-                //TODO: handle error
-                counter++;
-                if (counter === places.length) {
-                  res.json(filteredBody);
-                }
-              }) //end of layer 3 on 'error'
-          }
-
-        } else {
-          res.json(filteredBody);
-        }
-      }); //end of layer 2 on 'end'
-    }) //end of layer 1 on 'response'
-    .on('error', function(error) { //layeon 'error'
-      //TODO: handle error
-    }); //end of layer 1 on 'error'
+  rp.get('https://maps.googleapis.com/maps/api/place/radarsearch/json' + searchString
+      + '&key=' + GOOGLE_PLACES_API_KEY
+    )
+    .then(function(body){
+      var data = JSON.parse(body);                   //parse the data
+      if (data.results && data.results.length > 0) { //check that there is data
+        return data.results;
+      }
+    })
+    .catch(function(err){
+      console.log('google places API call failure', err);
+    })
+    .then(function(places){
+      for (var i = 0; i < places.length; i++) {
+        rp.get('https://maps.googleapis.com/maps/api/place/details/json?'
+            + 'key=' + GOOGLE_PLACES_API_KEY
+            + '&placeid=' + places[i].place_id
+          )
+          .then(function(locationData){
+            var formattedLocation = JSON.parse(locationData).result;
+            var reviews = formattedLocation.reviews;
+            if (reviews) {
+              for (var j = 0; j < reviews.length; j++) {
+                if (reviews[j].text.match(regex1) || reviews[j].text.match(regex2)) {
+                  var placesObj = PlacesObj(formattedLocation);
+                  flickr.search(placesObj, responseBody, res)
+                    .then(function(data){
+                     if(data){
+                      entered++;
+                     }
+                     if (entered === cap) {
+                      res.json(responseBody);
+                     }
+                    });
+                  break; //once review matches then end the full call
+                };
+              };
+            };
+          })
+          .catch(function(err){
+            console.log('google places review regexxing error', err);
+          });
+        //} end of API call
+      }
+    });
 };
 
 

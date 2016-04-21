@@ -15,12 +15,13 @@ class PlaceEntry extends Component {
   render() {
     return (
       <div className='place-entry animated fadeInUp'>
+        <img className='place-entry-image' src={this.props.place.url} alt="Smiley face" height="100" width="100" />
         <div className='place-info' >
             <h4>{ this.props.place.name }</h4>
             <p>{ this.props.place.address }</p>
             <div>
               <a className='place-entry-link' href={'//www.images.google.com/search?q=' + this.props.place.name + ' ' + this.props.place.address + '&tbm=isch'}
-              target='_blank'>View Images</a>
+              target='_blank'>More Views</a>
               <span className='place-entry-link-divider'>&middot;</span>
               <a className='place-entry-link' href={'//www.google.com/search?q=' + this.props.place.name + ' ' + this.props.place.address}
               target='_blank'>Find on Google</a>
