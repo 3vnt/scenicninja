@@ -8,9 +8,9 @@ ScenicNinja uses your current location to find great views nearby. It utilizes t
 
 ## Team
 
-  - __Product Owner__: Joel Aguero
-  - __Scrum Master__: Andrew Ho
-  - __Development Team Members__: Reina Mei, Laura Curley
+  - __Product Owner__: Genevieve Sublette
+  - __Scrum Master__: Thomas Ingalls
+  - __Development Team Members__: Jonathen Chen, Hao Huang
 
 ## Table of Contents
 
@@ -134,6 +134,8 @@ Visit `localhost:4568` in the browser.
    ```
    module.exports = 'your-serverside-mysql-password-goes-here';  
    ```
+
+- Note that the Google Places API will limit you to 1,000 results per hour, and each request returns 200 results. When you've reached the limit, photos will stop rendering.
 
 ==============================
 
