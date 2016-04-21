@@ -27,6 +27,9 @@ var Place = db.define('Place',
     },
     latitude: {
       type: Sequelize.FLOAT
+    },
+    url: {
+      type: Sequelize.STRING
     }
   },
   {

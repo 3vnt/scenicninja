@@ -4,6 +4,7 @@ var User = require(__dirname + '/../users/userModel.js');
 var GOOGLE_PLACES_API_KEY = require(__dirname + '/../config/googleplaces.js');
 var request = require('request');
 var urlParser = require('url');
+var flickr = require(__dirname +'/../flickr/flickrController.js');
 
 
 module.exports.getAllSaved = function(req, res) {
@@ -125,14 +126,23 @@ module.exports.searchGoogle = function(req, res) {
                     for (var j = 0; j < reviews.length; j++) {
                       var review = reviews[j];
                       if (review.text.match(regex1) || review.text.match(regex2)) { //TODO: improve regex matching
-                        filteredBody.places.push({
-                          name: placeDetails.name,
-                          address: placeDetails['formatted_address'],
-                          googlePlaceId: placeDetails['place_id'],
-                          //include long/lat for flickr API
-                          latitude: placeDetails['geometry']['location']['lat'],
-                          longitude: placeDetails['geometry']['location']['lng']
-                        });
+                          flickr.searchFlickr(placeDetails.name, placeDetails['geometry']['location']['lng'], placeDetails['geometry']['location']['lat']);
+                        //   .then(function(photoID){
+                        //     console.log("THIS IS THE ID OF THE PHOTO", photoID);
+                        //     return flickr.getPhotoUrl(photoID);
+                        //   })
+                        //   .then(function(url){
+                        //     console.log("THIS IS THE URL");
+                            filteredBody.places.push({
+                              name: placeDetails.name,
+                              address: placeDetails['formatted_address'],
+                              googlePlaceId: placeDetails['place_id'],
+                              //include long/lat for flickr API
+                              latitude: placeDetails['geometry']['location']['lat'],
+                              longitude: placeDetails['geometry']['location']['lng'],
+                              url: '',
+                            });
+                          // });
                         break;
                       }
                     }
