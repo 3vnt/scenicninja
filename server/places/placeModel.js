@@ -13,12 +13,22 @@ var Place = db.define('Place',
       field: 'google_place_id'
     },
     name: {
-      type: Sequelize.STRING,
+      type: Sequelize.STRING
     },
     address: {
       type: Sequelize.STRING
     },
     image: {
+      //we need to implement images
+      type: Sequelize.STRING
+    },
+    longitude: {
+      type: Sequelize.FLOAT
+    },
+    latitude: {
+      type: Sequelize.FLOAT
+    },
+    url: {
       type: Sequelize.STRING
     }
   },
