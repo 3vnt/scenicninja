@@ -1,11 +1,12 @@
 var Sequelize = require('sequelize');
-var flickrImage = require(__dirname + '/placeModel.js');
+var flickrImage = require(__dirname + '/../places/placeModel.js');
 var User = require(__dirname + '/../users/userModel.js');
 var FLICKR_API_KEY = require(__dirname + '/../config/flickr.js');
 var request = require('request');
 var urlParser = require('url');
 
 module.exports.searchFlickr = function(text, long, lat) {
+  console.log('search firing');
   //search coordinates or string
   var queryString = text;
   var lon = lon;
