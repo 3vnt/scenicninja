@@ -5,21 +5,20 @@ var FLICKR_API_KEY = require(__dirname + '/../config/flickr.js');
 var request = require('request');
 var urlParser = require('url');
 
-module.exports.searchFlickr = function(req, res) {
+module.exports.searchFlickr = function(text, long, lat) {
   //search coordinates or string
-  var queryString = urlParser.parse(req.url).search;
-  var lon = urlParser.parse(req.url).lon;
-  var lat = urlParser.parse(req.url).lat;
+  var queryString = text;
+  var lon = lon;
+  var lat = lat;
   var radius = 1;
-  var accuracy = 11
+  var accuracy = 11;
   var method ='flickr.photos.search';
-  var sort = 'relevance'
+  var sort = 'relevance';
   //The possible values are: date-posted-asc, date-posted-desc, date-taken-asc, date-taken-desc, interestingness-desc, interestingness-asc, and relevance.
-
   request.get('https://api.flickr.com/services/rest/?method=' + method +'&text=' + queryString + '&accuracy=' + accuracy +'&lat=' + lat + '&lon=' + lon + '&radius=' + radius + '&sort=' + sort + '&api_key=' + FLICKR_API_KEY.KEY)
 }
 
-module.exports.getPhotoURl = function(photoID, size) {  //return image source
+module.exports.getPhotoUrl = function(photoID, size) {  //return image source
   request.get('https;//api.flickr.com/services/rest/?method=flickr.photos.getSizes&photo_id=' + photoID + '&api_key=' + FLICKR_API_KEY.KEY)
           .on('response', function(response) {
             var body = [];
