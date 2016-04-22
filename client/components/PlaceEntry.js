@@ -13,12 +13,20 @@ class PlaceEntry extends Component {
   }
 
   render() {
+    //what will the image prop be called here?
+      //var picture = this.props.image;
     return (
       <div className='place-entry animated fadeInUp'>
         <img className='place-entry-image' src={this.props.place.url} alt="Smiley face" height="100" width="100" />
         <div className='place-info' >
             <h4>{ this.props.place.name }</h4>
             <p>{ this.props.place.address }</p>
+            <div>
+            //dummy data for image
+              <img src="http://losangeles.dodgers.mlb.com/mlb/images/team_logos/social_media/og_1200x630_image/la_1200x630.jpg" />
+             //render each image on each row 
+               //<img src={picture} />
+            </div>
             <div>
               <a className='place-entry-link' href={'//www.images.google.com/search?q=' + this.props.place.name + ' ' + this.props.place.address + '&tbm=isch'}
               target='_blank'>More Views</a>

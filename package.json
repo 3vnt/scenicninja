@@ -1,12 +1,12 @@
 {
-  "name": "holisticparallelogram",
-  "version": "1.0.0",
+  "name": "3vnt",
+  "version": "2.0.0",
   "description": "Get a list of local view spots near you",
   "contributors": [
-    "Andrew Ho",
-    "Joel Aguero",
-    "Laura Curley",
-    "Reina Mei"
+    "Jonathen Chen",
+    "Hao Huang",
+    "Thomas Ingalls",
+    "Genevieve Sublette"
   ],
   "main": "server.js",
   "scripts": {
@@ -23,9 +23,9 @@
   "private": true,
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/holisticparallelogram/holisticparallelogram/issues"
+    "url": "https://github.com/3vnt/holisticparallelogram/issues"
   },
-  "homepage": "https://github.com/holisticparallelogram/holisticparallelogram#readme",
+  "homepage": "https://github.com/3vnt/holisticparallelogram/blob/master/README.md",
   "dependencies": {
     "babel-register": "^6.7.2",
     "bluebird": "1.0.8",

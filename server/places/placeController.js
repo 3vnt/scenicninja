@@ -103,8 +103,8 @@ module.exports.deleteOne = function(req, res) {
 module.exports.searchGoogle = function(req, res) {
 
   var searchString = urlParser.parse(req.url).search; //include leading question mark
-  var regex1 = new RegExp(/(good|great|awesome|fantastic|terrific|nice|cool|wonderful|dope|beautiful|amazing|gorgeous|breathtaking|scenic|panoramic|stunning) view/);
-  var regex2 = new RegExp(/view (is|was) (good|great|awesome|fantastic|terrific|nice|cool|wonderful|dope|beautiful|amazing|gorgeous|breathtaking|scenic|panoramic|stunning)/);
+  var regex1 = new RegExp(/(good|great|pretty|awesome|fantastic|terrific|nice|cool|wonderful|dope|beautiful|amazing|gorgeous|breathtaking|scenic|panoramic|stunning) view/);
+  var regex2 = new RegExp(/(view) (is|was|has) (good|great|pretty|awesome|fantastic|terrific|nice|cool|wonderful|dope|beautiful|amazing|gorgeous|breathtaking|scenic|panoramic|stunning)/);
 
   var responseBody = {};
   responseBody.places = [];
