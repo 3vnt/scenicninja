@@ -35,6 +35,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSaveClick: (place, user) => {
+      // console.log('Place', place);
+      // console.log('User' ,user);
       $.ajax({
         url: '/api/places/saved',
         method: 'POST',

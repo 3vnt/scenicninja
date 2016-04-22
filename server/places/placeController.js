@@ -51,22 +51,39 @@ module.exports.saveOne = function(req, res) {
 };
 
 module.exports.deleteOne = function(req, res) {
-  var user = req.body.user;
-  var place = req.body.place;
+  var userId = req.body.userId;
+  var placeId = req.body.placeId;
 
   User.findOne({
-    where: user
+    where: {
+      id: userId
+    }
   })
   .then(function(foundUser) {
-    // Place.findOne({
-    //   where: place
-    // })
-    // .then(function(foundPlace) {
-    //   res.json(foundPlace);
-    // });
-    res.json(user);
-
+    Place.destroy({
+      where: {
+        id: placeId
+      }
+    })
+    .then(function(place) {
+      console.log(place);
+    })
   });
+  // User.findOne({
+  //   where: userId
+  // })
+  // .then(function(foundUserId) {
+  //   console.log(foundUserId);
+  //   res.json(foundUserId);
+  //   // Place.findOne({
+  //   //   where: place
+  //   // })
+  //   // .then(function(foundPlace) {
+  //   //   res.json(foundPlace);
+  //   // });
+  //   // res.json(user);
+
+  // });
 
   // User.findOne({
   //   where: user

@@ -8,6 +8,10 @@ module.exports = {
 
   savePlace: function(place) {
     return { type: types.SAVE_PLACE, place };
+  },
+
+  deletePlace: function(placeId) {
+    return { type: types.DELETE_PLACE, placeId };
   }
 
 };

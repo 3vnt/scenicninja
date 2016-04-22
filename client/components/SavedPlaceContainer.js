@@ -29,7 +29,7 @@ class SavedPlaceContainer extends Component {
           <h3>Your Saved Places</h3>
           { this.props.savedPlaces.map((savedPlace, i) => (
             <div>
-              <SavedPlaceEntry savedPlace={savedPlace} key={i} />
+              <SavedPlaceEntry savedPlace={savedPlace} key={i} actions={this.props.actions} dispatch={this.props.dispatch}/>
             </div>
           ))}
         </div>
