@@ -144,7 +144,6 @@ module.exports.searchGoogle = function(req, res) {
           .then(function(locationData){
             var formattedLocation = JSON.parse(locationData).result;
             var reviews = formattedLocation.reviews;
-            console.log(formattedLocation.rating, 'this is formattedLocation.rating----------------');
             if (reviews) {
               for (var j = 0; j < reviews.length; j++) {
                 if (reviews[j].text.match(regex1) || reviews[j].text.match(regex2)) {

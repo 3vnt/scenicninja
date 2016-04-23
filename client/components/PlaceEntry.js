@@ -36,12 +36,18 @@ class PlaceEntry extends Component {
     }
 
     var stars = temp.map(function(star) {
-      return (<span className='icon-star' fill='yellow'></span>);
-    });
+      return (<div className="stars-div">
+              <svg preserveAspectRatio="xMidYMin slice" viewBox="0 0 10 10" fill="yellow" className="star-svg" xmlns="http://www.w3.org/2000/svg">
+              <path d="m55,237 74-228 74,228L9,96h240"/></svg>
+              </div>);
+              });
 
     var emptyStars = empty.map(function(star) {
-      return (<span className='icon-star'></span>);
-    });
+      return (<div className="stars-div">
+              <svg preserveAspectRatio="xMidYMin slice" viewBox="0 0 10 10" fill="#ffffad" className="star-svg" xmlns="http://www.w3.org/2000/svg">
+              <path d="m55,237 74-228 74,228L9,96h240"/></svg>
+              </div>);
+              });
 
     return (
       <div className='place-entry animated fadeInUp'>
@@ -49,7 +55,7 @@ class PlaceEntry extends Component {
         <div className='place-info' >
             <h4>{ this.props.place.name }</h4>
             <p>{ this.props.place.address }</p>
-            <p>{stars} {emptyStars} {this.props.place.numberOfReviews} reviews</p>
+            <div>{stars} {emptyStars} {this.props.place.numberOfReviews} reviews</div>
             <p>{ this.props.place.reviews.text }</p>
             <div>
               <a className='place-entry-link' href={'//www.images.google.com/search?q=' + this.props.place.name + ' ' + this.props.place.address + '&tbm=isch'}

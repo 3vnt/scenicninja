@@ -277,3 +277,19 @@ svg#heart {
   top:280px;
 }*/
 
+
+.star-rating {
+  transform: scale(.15);
+}
+
+.stars-div {
+  display: inline-block;
+  width: 25px;
+}
+
+.star-svg {
+  padding-bottom: 25px; 
+  height: 1px; 
+  overflow: visible;
+  fill: yellow;
+}
