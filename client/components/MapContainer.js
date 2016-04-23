@@ -5,6 +5,17 @@ import { GoogleMapLoader, GoogleMap, Marker } from 'react-google-maps';
 class MapContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      class: 'saved-map'
+    };
+  }
+
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll.bind(this));
   }
 
   handleFetchCoordinate() {
@@ -15,8 +26,20 @@ class MapContainer extends Component {
     // console.log('Clicked coordinate: ', this.clickedCoord);
   }
 
+  handleScroll(event) {
+    let scrollTop = window.document.body.scrollTop;
+    // console.log('current position', scrollTop);
+    if (scrollTop > 280) {
+      // console.log('switch to fixed');
+      this.setState({class: 'saved-map-fixed'});
+    } else {
+      // console.log('switch back');
+      this.setState({class: 'saved-map'});
+    }
+  }
+
   render() {
-    { this.handleFetchCoordinate() }
+    { this.handleFetchCoordinate(); }
     return (
       <div>
         <GoogleMapLoader
@@ -24,9 +47,9 @@ class MapContainer extends Component {
             <div
               {...this.props}
               style={{
-                height: '400px',
+                height: '400px'
               }}
-              className='col-4-12 saved-places'
+              className={'col-4-12 ' + this.state.class}
           />
         }
         googleMapElement={
@@ -35,13 +58,6 @@ class MapContainer extends Component {
             defaultZoom={10}
             defaultCenter={ { lat: 37.80898699999999, lng: -122.41026} }
             onClick={this.handleMapClick}
-            style={{
-              height: '400px',
-              width: '400px',
-              position: 'absolute',
-              top: '0',
-              left: '0'
-            }}
           >
             {this.props.markers.map((marker, index) => {
               //{console.log('Marker: ', marker)}
@@ -51,6 +67,8 @@ class MapContainer extends Component {
                     position={this.clickedCoord}
                     key={marker.name}
                     defaultAnimation={2}
+                    actions={this.props.actions}
+                    dispatch={this.props.dispatch}
                 />
               );
             })}

@@ -33,11 +33,22 @@ header .black, .black {
 .saved-places {
   position: absolute;
   right: 0;
-  top: 280px;
+  top: 680px;
   color: rgba(0,0,0,0.6);
 }
 
 .saved-places-fixed {
+  position:fixed;
+  right: 0;
+  top: 400px;
+}
+.saved-map {
+  position:absolute;
+  right: 0;
+  top: 280px;
+}
+
+.saved-map-fixed {
   position:fixed;
   right: 0;
   top: 0px;

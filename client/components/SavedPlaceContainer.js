@@ -7,7 +7,7 @@ class SavedPlaceContainer extends Component {
     super(props);
     this.state = {
       class: 'saved-places'
-    }
+    };
   }
 
   componentDidMount() {
@@ -23,10 +23,10 @@ class SavedPlaceContainer extends Component {
     // console.log('current position', scrollTop);
     if (scrollTop > 280) {
       // console.log('switch to fixed');
-      this.setState({class:'saved-places-fixed'});
+      this.setState({class: 'saved-places-fixed'});
     } else {
       // console.log('switch back');
-      this.setState({class:'saved-places'});
+      this.setState({class: 'saved-places'});
     }
   }
 
@@ -48,7 +48,7 @@ class SavedPlaceContainer extends Component {
 
       // there are saved places, so display them
       return (
-        <div className={'col-4-12 '+ this.state.class}>
+        <div className={'col-4-12 ' + this.state.class}>
           <h3>Your Saved Places</h3>
           { this.props.savedPlaces.map((savedPlace, i) => (
             <div>
