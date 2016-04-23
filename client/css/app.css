@@ -288,8 +288,8 @@ svg#heart {
 }
 
 .star-svg {
-  padding-bottom: 25px; 
-  height: 1px; 
-  overflow: visible;
-  fill: yellow;
+  /*padding-bottom: 25px !important; */
+  height: 1px !important; 
+  overflow: visible !important;
+  fill: yellow !important;
 }
