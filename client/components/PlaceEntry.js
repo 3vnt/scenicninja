@@ -29,7 +29,17 @@ class PlaceEntry extends Component {
     for (var i = 0; i < this.props.place.rating; i++) {
       temp.push(i);
     }
+    
+    var empty = [];
+    for (var i = 5; i > this.props.place.rating; i--) {
+      empty.push(i);
+    }
+
     var stars = temp.map(function(star) {
+      return (<span className='icon-star' fill='yellow'></span>);
+    });
+
+    var emptyStars = empty.map(function(star) {
       return (<span className='icon-star'></span>);
     });
 
@@ -39,7 +49,7 @@ class PlaceEntry extends Component {
         <div className='place-info' >
             <h4>{ this.props.place.name }</h4>
             <p>{ this.props.place.address }</p>
-            <p>rating: {stars} </p>
+            <p>{stars} {emptyStars} {this.props.place.numberOfReviews} reviews</p>
             <p>{ this.props.place.reviews.text }</p>
             <div>
               <a className='place-entry-link' href={'//www.images.google.com/search?q=' + this.props.place.name + ' ' + this.props.place.address + '&tbm=isch'}
