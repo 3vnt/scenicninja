@@ -32,26 +32,26 @@ header .black, .black {
 
 .saved-places {
   position: absolute;
-  right: 0;
-  top: 680px;
+  right: 150px;
+  top: 730px;
   color: rgba(0,0,0,0.6);
 }
 
 .saved-places-fixed {
   position:fixed;
-  right: 0;
-  top: 400px;
+  right: 150px;
+  top: 450px;
 }
 .saved-map {
   position:absolute;
-  right: 0;
-  top: 280px;
+  right: 150px;
+  top: 330px;
 }
 
 .saved-map-fixed {
   position:fixed;
-  right: 0;
-  top: 0px;
+  right: 150px;
+  top: 50px;
 }
 
 .no-saved-places {
@@ -95,7 +95,7 @@ a.sort-by-text {
   padding: 8px 0px;
   color: #FF5A3B;
   font-size: .8em;
-  margin-right: 10px;  
+  margin-right: 10px;
   font-weight: 700;
 }
 
