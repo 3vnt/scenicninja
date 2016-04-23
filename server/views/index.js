@@ -45,6 +45,7 @@ const renderFullPage = function(html, initialState) {
         <link rel="stylesheet" href="./css/simple-grid.css" media="screen" title="no title" charset="utf-8" />
         <link rel="stylesheet" href="./css/animate.css" media="screen" title="no title" charset="utf-8" />
         <link href="https://fonts.googleapis.com/css?family=Signika:700,400,600" rel="stylesheet" type="text/css" />
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
       </head>
       <body>
         <div id="app">${html}</div>
