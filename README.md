@@ -58,6 +58,7 @@ Visit `localhost:4568` in the browser.
 - MySQL 5.7.11
 - [Google Places API key](https://developers.google.com/places/web-service/get-api-key)
 - [Google Plus API key](https://developers.google.com/+/web/api/rest/oauth#acquiring-and-using-an-api-key)
+- [Flickr API key](https://www.flickr.com/services/apps/create/noncommercial)
 
 ## Development
 
