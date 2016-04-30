@@ -311,3 +311,19 @@ svg#heart {
   top:280px;
 }*/
 
+
+.star-rating {
+  transform: scale(.15);
+}
+
+.stars-div {
+  display: inline-block;
+  width: 25px;
+}
+
+.star-svg {
+  /*padding-bottom: 25px !important; */
+  height: 1px !important; 
+  overflow: visible !important;
+  fill: yellow !important;
+}

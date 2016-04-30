@@ -17,7 +17,8 @@ var PlacesObj = function(googlePlacesData) {
     longitude: googlePlacesData['geometry']['location']['lng'],
     url: '',
     reviews: googlePlacesData.reviews[0],
-    rating: Math.round(googlePlacesData.rating)
+    rating: Math.round(googlePlacesData.rating),
+    numberOfReviews: googlePlacesData.reviews.length
   }
 }
 
